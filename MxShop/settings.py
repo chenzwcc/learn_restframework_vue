@@ -42,9 +42,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'DjangoUeditor',
-    'goods',
     'users',
+    'goods',
+    'user_operation',
+    'trade',
+    'rest_framework',
+    'xadmin',
+    'DjangoUeditor',
+    'crispy_forms'
 ]
 
 MIDDLEWARE = [
@@ -127,3 +132,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
