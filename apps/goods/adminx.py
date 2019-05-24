@@ -19,7 +19,15 @@ class GoodsAdmin(object):
     list_filter = ["name", "click_num", "sold_num", "fav_num", "goods_num", "market_price",
                    "shop_price", "is_new", "is_hot", "add_time", "category__name"]
 
-    style_fields = ['goods_desc', 'ueditor']
+    style_fields = {'goods_desc': 'ueditor'}
+
+    class GoodsImagesInline(object):
+        model = GoodsImage
+        exclude = ["add_time"]
+        extra = 1
+        style = 'tab'
+
+    inlines = [GoodsImagesInline]
 
 
 class GoodsCategoryAdmin(object):
@@ -30,6 +38,12 @@ class GoodsCategoryAdmin(object):
 
 class GoodsBrandAdmin(object):
     list_display = ["category", "image", "name", "desc"]
+
+    def get_context(self):
+        context = super(GoodsBrandAdmin, self).get_context()
+        if 'form' in context:
+            context['form'].fields['category'].queryset = GoodsCategory.objects.filter(category_type=1)
+        return context
 
 
 class BannerGoodsAdmin(object):
