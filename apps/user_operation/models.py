@@ -3,7 +3,6 @@ from datetime import datetime
 from django.db import models
 from django.contrib.auth import get_user_model
 
-from users.models import UserProfile
 from goods.models import Goods
 
 User = get_user_model()
@@ -23,7 +22,7 @@ class UserFav(models.Model):
         unique_together = ('goods', 'user')
 
     def __str__(self):
-        return self.user.username
+        return self.user.name
 
 
 class UserAddress(models.Model):

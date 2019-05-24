@@ -3,7 +3,7 @@
 # 创建日期  ：2019/5/23 下午2:26
 
 import xadmin
-from user_operation.models import UserFav, UserAddress, UserLeavingMessage
+from .models import UserFav, UserAddress, UserLeavingMessage
 
 
 class UserFavAdmin(object):

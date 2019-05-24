@@ -5,7 +5,7 @@
 import xadmin
 from xadmin import views
 
-from users.models import VerifyCode
+from .models import VerifyCode
 
 
 class BaseSetting(object):

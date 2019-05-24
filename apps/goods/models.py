@@ -35,7 +35,7 @@ class GoodsCategoryBrand(models.Model):
     """
     某一大类下的宣传商标
     """
-    category = models.ForeignKey('GoodsCategory', on_delete=models.CASCADE, related_name='brands',
+    category = models.ForeignKey(GoodsCategory, on_delete=models.CASCADE, related_name='brands',
                                  null=True, blank=True, verbose_name="商品类目")
     name = models.CharField(verbose_name="品牌名", max_length=30, default="")
     desc = models.TextField(verbose_name="品牌描述", default="")

@@ -3,7 +3,7 @@
 # 创建日期  ：2019/5/23 下午2:21
 
 import xadmin
-from trade.models import ShoppingCart, OrderGoods, OrderInfo
+from .models import ShoppingCart, OrderGoods, OrderInfo
 
 
 class ShoppingCartAdmin(object):

@@ -4,7 +4,7 @@
 
 import xadmin
 
-from goods.models import Goods, GoodsCategory, GoodsImage, GoodsCategoryBrand, Banner, HotSearchWords, IndexAd
+from .models import Goods, GoodsCategory, GoodsImage, GoodsCategoryBrand, Banner, HotSearchWords, IndexAd
 
 
 class GoodsAdmin(object):
