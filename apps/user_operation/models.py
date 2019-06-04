@@ -22,7 +22,7 @@ class UserFav(models.Model):
         unique_together = ('goods', 'user')
 
     def __str__(self):
-        return self.user.name
+        return self.user.username
 
 
 class UserAddress(models.Model):
