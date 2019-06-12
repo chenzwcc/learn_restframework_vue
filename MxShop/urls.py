@@ -14,12 +14,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 import xadmin
-from django.urls import path,include
+from django.urls import path,include, re_path
 from django.views.static import serve
 from MxShop.settings import MEDIA_ROOT
 from rest_framework.documentation import include_docs_urls
 
-from goods.views import GoodsListView
+#from goods.views import GoodsListView
+from rest_framework.routers import DefaultRouter
+from goods.views import GoodsListViewSet
+
+router = DefaultRouter()
+# 配置goods的URL
+router.register(r'goods',GoodsListViewSet)
 
 urlpatterns = [
     path('xadmin/', xadmin.site.urls),
@@ -28,5 +34,6 @@ urlpatterns = [
     path('docs/',include_docs_urls(title="Api文档")),
     path('api-auth/',include('rest_framework.urls',namespace='rest_framework')),
 
-    path('goods/',GoodsListView.as_view())
+#    path('goods/',GoodsListView.as_view())
+    re_path('^',include(router.urls))
 ]

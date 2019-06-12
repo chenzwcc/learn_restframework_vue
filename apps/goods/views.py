@@ -17,10 +17,19 @@ from .custom_pagin import GoodsPagination
 from rest_framework.generics import ListAPIView
 
 
-class GoodsListView(ListAPIView):
-    """
-    商品列表
-    """
+#class GoodsListView(ListAPIView):
+#    """
+#    商品列表
+#    """
+#    pagination_class = GoodsPagination  # 分页
+#    queryset = Goods.objects.all()
+#    serializer_class = GoodsSerializer
+
+from rest_framework.mixins import ListModelMixin
+from rest_framework.viewsets import GenericViewSet
+
+
+class GoodsListViewSet(ListModelMixin,GenericViewSet):
     pagination_class = GoodsPagination  # 分页
     queryset = Goods.objects.all()
     serializer_class = GoodsSerializer
