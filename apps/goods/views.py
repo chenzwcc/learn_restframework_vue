@@ -15,6 +15,6 @@ from rest_framework import filters
 class GoodsListViewSet(ListModelMixin,GenericViewSet):
     queryset = Goods.objects.all()
     pagination_class = GoodsPagination  # 分页
-    filter_backends = [filters.SearchFilter]
-    search_fields = ['name']
+    filter_backends = (filters.OrderingFilter,)
+    ordering_fields = ('name',)
     serializer_class = GoodsSerializer
