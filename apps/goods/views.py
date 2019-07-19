@@ -1,3 +1,4 @@
+import django_filters
 from django.shortcuts import render
 
 # Create your views here.
@@ -30,6 +31,8 @@ from rest_framework.viewsets import GenericViewSet
 
 
 class GoodsListViewSet(ListModelMixin,GenericViewSet):
-    pagination_class = GoodsPagination  # 分页
     queryset = Goods.objects.all()
+    pagination_class = GoodsPagination  # 分页
+    filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
+    # filter_fields = ('name',)
     serializer_class = GoodsSerializer

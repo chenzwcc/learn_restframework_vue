@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'xadmin',
     'DjangoUeditor',
-    'crispy_forms'
+    'crispy_forms',
+    'django_filters'
 ]
 
 MIDDLEWARE = [
@@ -139,9 +140,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 
 # restframework配置
-#REST_FRAMEWORK = {
+REST_FRAMEWORK = {
 #    #分页
 #    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
 #    #每页显示的个数
 #    'PAGE_SIZE': 10,
-#}
+'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
