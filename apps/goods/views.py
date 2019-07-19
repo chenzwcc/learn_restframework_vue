@@ -28,11 +28,12 @@ from rest_framework.generics import ListAPIView
 
 from rest_framework.mixins import ListModelMixin
 from rest_framework.viewsets import GenericViewSet
-
+from goods.custom_filter import GoodsFilter
 
 class GoodsListViewSet(ListModelMixin,GenericViewSet):
     queryset = Goods.objects.all()
     pagination_class = GoodsPagination  # 分页
     filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
     # filter_fields = ('name',)
+    filter_class = GoodsFilter
     serializer_class = GoodsSerializer
