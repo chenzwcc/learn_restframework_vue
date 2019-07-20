@@ -6,14 +6,23 @@ from rest_framework import serializers
 
 from goods.models import Goods, GoodsCategory
 
-# class GoodsSerializer(serializers.Serializer):
-#     name = serializers.CharField(required=True,max_length=100)
-#     click_num = serializers.CharField(default=0)
-#     goods_front_image = serializers.ImageField()
+
+class CategorysSeralizer3(serializers.ModelSerializer):
+    class Meta:
+        model = GoodsCategory
+        fields = "__all__"
+
+
+class CategorysSeralizer2(serializers.ModelSerializer):
+    sub_cat = CategorysSeralizer3(many=True)
+    class Meta:
+        model = GoodsCategory
+        fields = "__all__"
 
 
 # ModelSerializer类似Django中的ModelForm
 class CategorySerializer(serializers.ModelSerializer):
+    sub_cat = CategorysSeralizer2(many=True)
     class Meta:
         model = GoodsCategory
         fields = "__all__"
@@ -25,3 +34,5 @@ class GoodsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Goods
         fields = "__all__"
+
+
