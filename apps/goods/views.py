@@ -24,5 +24,5 @@ class GoodsCategoryViewSet(ListModelMixin,RetrieveModelMixin,GenericViewSet):
     """
     商品分类列表
     """
-    queryset = GoodsCategory.objects.all()
+    queryset = GoodsCategory.objects.filter(category_type=1)
     serializer_class = CategorySerializer
