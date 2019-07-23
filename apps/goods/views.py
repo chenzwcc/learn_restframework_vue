@@ -16,7 +16,8 @@ class GoodsListViewSet(ListModelMixin,GenericViewSet):
     queryset = Goods.objects.all()
     pagination_class = GoodsPagination  # 分页
     filter_backends = (filters.OrderingFilter,)
-    ordering_fields = ('name',)
+    ordering_fields = ('sold_num','shop_price')
+    search_fields = ('name', 'goods_brief', 'goods_desc')
     serializer_class = GoodsSerializer
 
 

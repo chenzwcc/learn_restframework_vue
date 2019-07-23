@@ -7,7 +7,7 @@ class GoodsPagination(PageNumberPagination):
     """
     自定义商品分页
     """
-    page_size = 1
+    page_size = 12
 
     # 指定每页多少个
     page_size_query_param = "page_size"
