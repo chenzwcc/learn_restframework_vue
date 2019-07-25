@@ -166,8 +166,16 @@ AUTHENTICATION_BACKENDS = (
 )
 
 import datetime
-#有效期限
+#JWT有效期限
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),    #也可以设置seconds=20
     'JWT_AUTH_HEADER_PREFIX': 'JWT',                       #JWT跟前端保持一致，比如“token”这里设置成JWT
 }
+
+# 邮箱发送配置
+EMAIL_HOST='smtp.sina.com'
+EMAIL_PORT=25
+EMAIL_HOST_USER='18279816872@sina.cn'
+EMAIL_HOST_PASSWORD='*********'#你的新浪邮箱密码
+EMAIL_USER_TLS=False
+EMAIL_FROM='18279816872@sina.cn'

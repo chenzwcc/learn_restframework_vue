@@ -24,12 +24,15 @@ from rest_framework.documentation import include_docs_urls
 #from goods.views import GoodsListView
 from rest_framework.routers import DefaultRouter
 from goods.views import GoodsListViewSet, GoodsCategoryViewSet, BannerViewSet
+from users.views import SendMsgViewSet, UserViewSet
 
 router = DefaultRouter()
 # 配置goods的URL
 router.register(r'goods',GoodsListViewSet, base_name="goods")
 router.register(r'categorys', GoodsCategoryViewSet, base_name="categorys")
 router.register(r'banners',BannerViewSet,base_name='banners')
+router.register(r'code',SendMsgViewSet,base_name='code')
+router.register(r'users',UserViewSet,base_name='users')
 
 urlpatterns = [
     path('xadmin/', xadmin.site.urls),

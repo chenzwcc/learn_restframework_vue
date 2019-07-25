@@ -28,7 +28,7 @@ class GlobalSettings(object):
 
 
 class VerifyCodeXadmin(object):
-    list_display = ['code', 'mobile', 'add_time']
+    list_display = ['code', 'email', 'add_time']
 
 
 xadmin.site.register(VerifyCode,VerifyCodeXadmin)
