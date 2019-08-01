@@ -14,7 +14,14 @@ from rest_framework.viewsets import GenericViewSet
 from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
 
-class GoodsListViewSet(ListModelMixin,GenericViewSet):
+
+class GoodsListViewSet(ListModelMixin,RetrieveModelMixin,GenericViewSet):
+    """
+    list:
+        商品列表，分页，搜索，过滤，排序
+    retrieve:
+        查看商品详情
+    """
     queryset = Goods.objects.all().order_by('id')
     pagination_class = GoodsPagination  # 分页
     filter_backends = (filters.OrderingFilter,filters.SearchFilter,DjangoFilterBackend)
@@ -35,4 +42,3 @@ class GoodsCategoryViewSet(ListModelMixin,RetrieveModelMixin,GenericViewSet):
 class BannerViewSet(ListModelMixin,GenericViewSet):
     queryset = Banner.objects.all().order_by('index')
     serializer_class = BannerSerializer
-

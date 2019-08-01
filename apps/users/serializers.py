@@ -23,7 +23,6 @@ class SendMsgSerializer(serializers.Serializer):
         邮箱格式验证
         """
         if User.objects.filter(email=email).count():
-            print('--------')
             raise serializers.ValidationError("该邮箱已被注册")
 
         if not re.match(EMAIL_REGEX,email):
@@ -42,16 +41,23 @@ class UserRegisterSerializer(serializers.ModelSerializer):
     用户注册
     """
     # UserProfile中没有code字段，这里需要自定义一个code序列化字段
-    code = serializers.CharField(required=True,write_only=True,max_length=4,min_length=4,
+    code = serializers.CharField(required=True,write_only=True,max_length=4,min_length=4,label="验证码",
                                  error_messages={
                                     "blank": "请输入验证码",
                                     "required": "请输入验证码",
                                     "max_length": "验证码格式错误",
                                     "min_length": "验证码格式错误"
-                                 },help_text="验证码")
+                                 })
     # 验证用户名是否存在
-    username = serializers.CharField(label="用户名",help_text="用户名",required=True,
+    username = serializers.CharField(label="用户名",required=True,
                                      allow_blank=False,validators=[UniqueValidator(queryset=User.objects.all(),message="用户已存在")])
+    password = serializers.CharField(
+        style={
+            "input_type":"password",
+        },
+        label="密码",
+        write_only=True
+    )
 
     def validate_code(self,code):
         # 用户注册，已post方式提交注册信息，post的数据都保存在initial_data里面
@@ -80,4 +86,10 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username','code','email','password')
+        fields = ('username','code','email','password','mobile')
+
+
+class UserDetailSeralizer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('username','gender','birthday','email','mobile')

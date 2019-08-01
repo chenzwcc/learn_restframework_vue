@@ -25,6 +25,7 @@ from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
 from goods.views import GoodsListViewSet, GoodsCategoryViewSet, BannerViewSet
 from users.views import SendMsgViewSet, UserViewSet
+from user_operation.views import UserFavViewSet, LeaveMessageViewSet,UserAddressViewSet
 
 router = DefaultRouter()
 # 配置goods的URL
@@ -33,6 +34,9 @@ router.register(r'categorys', GoodsCategoryViewSet, base_name="categorys")
 router.register(r'banners',BannerViewSet,base_name='banners')
 router.register(r'code',SendMsgViewSet,base_name='code')
 router.register(r'users',UserViewSet,base_name='users')
+router.register(r'userfavs',UserFavViewSet,base_name='userfavs')
+router.register(r'messages',LeaveMessageViewSet,base_name='messages')
+router.register(r'address',UserAddressViewSet,base_name='address')
 
 urlpatterns = [
     path('xadmin/', xadmin.site.urls),

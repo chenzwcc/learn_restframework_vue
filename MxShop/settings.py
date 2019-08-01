@@ -143,21 +143,19 @@ STATICFILES_DIRS = (
 )
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
-
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # restframework配置
 REST_FRAMEWORK = {
-#    #分页
-#    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-#    #每页显示的个数
-#    'PAGE_SIZE': 10,
-#     过滤
-# 'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+    #    #分页
+    #    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    #    #每页显示的个数
+    #    'PAGE_SIZE': 10,
+    #     过滤
+    # 'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     )
 }
 # 自定义用户认证
@@ -166,16 +164,17 @@ AUTHENTICATION_BACKENDS = (
 )
 
 import datetime
-#JWT有效期限
+
+# JWT有效期限
 JWT_AUTH = {
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),    #也可以设置seconds=20
-    'JWT_AUTH_HEADER_PREFIX': 'JWT',                       #JWT跟前端保持一致，比如“token”这里设置成JWT
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),  # 也可以设置seconds=20
+    'JWT_AUTH_HEADER_PREFIX': 'JWT',  # JWT跟前端保持一致，比如“token”这里设置成JWT
 }
 
 # 邮箱发送配置
-EMAIL_HOST='smtp.sina.com'
-EMAIL_PORT=25
-EMAIL_HOST_USER='18279816872@sina.cn'
-EMAIL_HOST_PASSWORD='*********'#你的新浪邮箱密码
-EMAIL_USER_TLS=False
-EMAIL_FROM='18279816872@sina.cn'
+EMAIL_HOST = 'smtp.sina.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = '18279816872@sina.cn'
+EMAIL_HOST_PASSWORD = '********'  # 你的新浪邮箱密码
+EMAIL_USER_TLS = False
+EMAIL_FROM = '18279816872@sina.cn'

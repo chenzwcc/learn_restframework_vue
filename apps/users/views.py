@@ -7,12 +7,14 @@ from django.shortcuts import render
 
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth import get_user_model
-from rest_framework import viewsets,mixins
+from rest_framework import viewsets, mixins, authentication
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework_jwt.serializers import jwt_payload_handler, jwt_encode_handler
+from rest_framework import permissions
 
-from users.serializers import SendMsgSerializer, UserRegisterSerializer
+from users.serializers import SendMsgSerializer, UserRegisterSerializer, UserDetailSeralizer
 from utils.email_send import send_email
 from utils.conf import DOMAIN_PREFIX
 from users.models import VerifyCode
@@ -25,7 +27,6 @@ class CustomBackend(ModelBackend):
     自定义用户认证
     """
     def authenticate(self, request, username=None, password=None, **kwargs):
-        print('zizizizi',username,password)
         try:
             user = User.objects.get(Q(username=username)|Q(mobile=username))
             if user.check_password(password):
@@ -73,12 +74,16 @@ class SendMsgViewSet(mixins.CreateModelMixin,viewsets.GenericViewSet):
             },status=status.HTTP_201_CREATED)
 
 
-class UserViewSet(mixins.CreateModelMixin,viewsets.GenericViewSet):
+class UserViewSet(mixins.CreateModelMixin,mixins.RetrieveModelMixin,mixins.UpdateModelMixin,viewsets.GenericViewSet):
     """
-    用户
+    create:
+        创建用户
+    retrieve:
+        用户详情信息
     """
     serializer_class = UserRegisterSerializer
     queryset = User.objects.all()
+    authentication_classes = (JSONWebTokenAuthentication,authentication.SessionAuthentication)
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -93,6 +98,21 @@ class UserViewSet(mixins.CreateModelMixin,viewsets.GenericViewSet):
         headers = self.get_success_headers(serializer.data)
 
         return Response(re_dict,status=status.HTTP_201_CREATED,headers=headers)
+
+    def get_permissions(self):
+        if self.action == "retrieve":
+            return [permissions.IsAuthenticated()]
+        elif self.action == 'create':
+            return []
+        return []
+
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return UserRegisterSerializer
+        return UserDetailSeralizer
+
+    def get_object(self):
+        return self.request.user
 
     def perform_create(self, serializer):
         return serializer.save()

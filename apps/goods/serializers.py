@@ -3,7 +3,13 @@
 # 创建日期  ：2019/5/31 下午9:57
 from rest_framework import serializers
 
-from goods.models import Goods, GoodsCategory, Banner
+from goods.models import Goods, GoodsCategory, Banner, GoodsImage
+
+
+class GoodsImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GoodsImage
+        fields = ('image',)
 
 
 class CategorysSeralizer3(serializers.ModelSerializer):
@@ -29,7 +35,8 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class GoodsSerializer(serializers.ModelSerializer):
     category = CategorySerializer()
-
+    # images是数据库中设置的related_name="images"，把轮播图嵌套进来
+    images = GoodsImageSerializer(many=True)
     class Meta:
         model = Goods
         fields = "__all__"
